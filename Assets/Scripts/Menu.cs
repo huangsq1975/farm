@@ -146,6 +146,7 @@ public class Menu : MonoBehaviour
 				});
 			}
 		}
+		UpdateFarmButtonLabel();
 		Manager.sound.SetVolumeBgm(0.5f);
 		SetNewIcon();
 		SetGranpa();
@@ -157,6 +158,21 @@ public class Menu : MonoBehaviour
 			Manager.office.RemoveNotice();
 			SetWorkerNotice();
 		}
+	}
+
+	private void UpdateFarmButtonLabel()
+	{
+		Transform label = base.transform.Find("b_farm/label");
+		if (label == null)
+		{
+			return;
+		}
+		TextMesh textMesh = label.GetComponent<TextMesh>();
+		if (textMesh == null)
+		{
+			return;
+		}
+		textMesh.text = (Data.farm_type == Data.eFarmType.RESORT) ? "农场" : "度假";
 	}
 
 	public void SetNewIcon()

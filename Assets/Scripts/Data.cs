@@ -1631,7 +1631,7 @@ public class Data
 		farm_type = (eFarmType)PlayerPrefs.GetInt(eSAVE.FARM_TYPE.ToString(), 0);
 		suf = SetSuffix(farm_type);
 		opening = PlayerPrefs.GetInt(eSAVE.OPENING.ToString(), 0);
-		if (opening == 0 && !HasSavedPlayerName())
+		if (opening == 0 && !HasSavedPlayerName() && !HasAnyPersistedProgress())
 		{
 			Reset();
 		}
@@ -1763,6 +1763,10 @@ public class Data
 			facility_data[num2].enabled = PlayerPrefs.GetInt(eSAVE.FACILITY_ENABLE.ToString() + num2 + suf, facility_init_enabled(num2));
 		}
 		get_granpa_coin = false;
+		if (opening == 0 && ShouldSkipOpeningFlow())
+		{
+			SetOpening();
+		}
 	}
 
 	private string SetSuffix(eFarmType ftype)
@@ -1776,6 +1780,117 @@ public class Data
 		default:
 			return "error";
 		}
+	}
+
+	/// <summary>
+	/// 是否已有可辨識的存檔進度（用於避免誤觸新手選角／開場）。
+	/// </summary>
+	private static bool HasAnyPersistedProgress()
+	{
+		if (PlayerPrefs.GetInt(eSAVE.FIRST_COIN.ToString(), 0) != 0)
+		{
+			return true;
+		}
+		if (PlayerPrefs.GetInt(eSAVE.ENDING.ToString(), 0) != 0)
+		{
+			return true;
+		}
+		if (PlayerPrefs.GetInt(eSAVE.RESORT_EVENT.ToString(), 0) != 0)
+		{
+			return true;
+		}
+		foreach (string farmSuf in new string[2]
+		{
+			string.Empty,
+			"_1"
+		})
+		{
+			string levelKey = eSAVE.LEVEL.ToString() + farmSuf;
+			if (PlayerPrefs.HasKey(levelKey) && PlayerPrefs.GetInt(levelKey, 1) > 1)
+			{
+				return true;
+			}
+			string expKey = eSAVE.EXP.ToString() + farmSuf;
+			if (PlayerPrefs.HasKey(expKey) && PlayerPrefs.GetInt(expKey, 0) > 0)
+			{
+				return true;
+			}
+			string coinKey = eSAVE.COIN.ToString() + farmSuf;
+			if (PlayerPrefs.HasKey(coinKey) && PlayerPrefs.GetInt(coinKey, 2000) != 2000)
+			{
+				return true;
+			}
+			for (int i = 0; i < 11; i++)
+			{
+				string typeKey = eSAVE.FACILITY_TYPE.ToString() + i + farmSuf;
+				if (PlayerPrefs.HasKey(typeKey) && PlayerPrefs.GetInt(typeKey, -1) != -1)
+				{
+					return true;
+				}
+			}
+		}
+		int[] charaCounts = new int[4]
+		{
+			36,
+			26,
+			20,
+			17
+		};
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < charaCounts[i]; j++)
+			{
+				if (PlayerPrefs.GetInt(eSAVE.CHARACTER_REG.ToString() + i + j, 0) == 1)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private bool HasExistingGameProgress()
+	{
+		if (first_coin != 0 || ending != 0 || resort_event != 0)
+		{
+			return true;
+		}
+		if (level > 1 || exp > 0)
+		{
+			return true;
+		}
+		if (PlayerPrefs.HasKey(eSAVE.COIN.ToString() + suf) && coin != coin_init_value[(int)farm_type])
+		{
+			return true;
+		}
+		for (int i = 0; i < 11; i++)
+		{
+			if (facility_data[i].type != (Facility.eType)(-1))
+			{
+				return true;
+			}
+			int defaultState = (i == 10 && farm_type == eFarmType.RESORT) ? (-1) : 0;
+			if ((int)facility_data[i].state != defaultState)
+			{
+				return true;
+			}
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < character_data[i].contents.Count; j++)
+			{
+				if (character_data[i].contents[j].reg == 1)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private bool ShouldSkipOpeningFlow()
+	{
+		return HasSavedPlayerName() || HasExistingGameProgress();
 	}
 
 	public void SetOpening()
