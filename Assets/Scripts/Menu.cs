@@ -542,12 +542,12 @@ public class Menu : MonoBehaviour
 
 	public void TouchApp()
 	{
-		LinkEvent.GoTodApps();
+		//LinkEvent.GoTodApps();
 	}
 
 	public void TouchTwitter()
 	{
-		LinkEvent.GoToSns();
+		//LinkEvent.GoToSns();
 	}
 
 	public void TouchConsent()
@@ -636,7 +636,7 @@ public class Menu : MonoBehaviour
 
 	public void ClickRecommend()
 	{
-		LinkEvent.PushedRecommend((int)manager.data.lang);
+		//LinkEvent.PushedRecommend((int)manager.data.lang);
 	}
 
 	private void SetRecommendBanner()

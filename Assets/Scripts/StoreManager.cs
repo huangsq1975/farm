@@ -496,6 +496,7 @@ public class StoreManager : MonoBehaviour
 		GameObject original = Resources.Load("Prefab/farm_" + (int)Data.farm_type + "/store_" + level) as GameObject;
 		store_exterior = UnityEngine.Object.Instantiate(original, base.transform, worldPositionStays: false);
 		store_order_in_layer = store_exterior.transform.Find("contents/building_1").GetComponent<SpriteRenderer>().sortingOrder;
+		MapIconLabel.Set(store_exterior.transform, "商店", store_order_in_layer + 1);
 		if (!immediate)
 		{
 			Animation component = store_exterior.GetComponent<Animation>();

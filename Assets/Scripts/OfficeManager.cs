@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class OfficeManager : MonoBehaviour
 {
+	private const string HomeLabelText = "办公室";
+
+	private const int HomeLabelSortingOrder = 3;
+
 	private Manager manager;
 
 	public TouchEvent home;
@@ -17,6 +21,10 @@ public class OfficeManager : MonoBehaviour
 		GameObject gameObject = GameObject.Find("Manager");
 		manager = gameObject.GetComponent<Manager>();
 		home = transform.Find("home_" + (int)Data.farm_type + "(Clone)").GetComponent<TouchEvent>();
+		if (home != null)
+		{
+			MapIconLabel.Set(home.transform, HomeLabelText, HomeLabelSortingOrder);
+		}
 	}
 
 	public void TouchOffice(TouchEvent touch)

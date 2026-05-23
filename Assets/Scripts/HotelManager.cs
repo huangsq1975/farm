@@ -534,6 +534,7 @@ public class HotelManager : MonoBehaviour
 		GameObject original = Resources.Load("Prefab/farm_" + (int)Data.farm_type + "/hotel_" + level) as GameObject;
 		hotel_exterior = UnityEngine.Object.Instantiate(original, base.transform, worldPositionStays: false);
 		hotel_order_in_layer = hotel_exterior.transform.Find("contents/building_1").GetComponent<SpriteRenderer>().sortingOrder;
+		MapIconLabel.Set(hotel_exterior.transform, "酒店", hotel_order_in_layer + 1);
 		if (!immediate)
 		{
 			Animation component = hotel_exterior.GetComponent<Animation>();
