@@ -846,6 +846,12 @@ public class Event : MonoBehaviour
 
 	private void SelectCharacter()
 	{
+		// 预加载 DoOpening 所需资源，避免确认角色后同步加载造成卡顿
+		Resources.Load("Prefab/granpa");
+		Resources.Load("Prefab/event_human");
+		Resources.Load("Prefab/op_balloon");
+		Resources.Load("Prefab/HollowedCamera");
+		Resources.Load("Prefab/skip");
 		state = eState.CHARACTER_SELECT;
 		SetLayer(LAYER_SELECT);
 		tm.SetSpecificEnabled(enabled: true);
