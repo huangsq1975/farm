@@ -13,7 +13,7 @@ public class LinkEvent
 
 	public static string[] TITLE = new string[2]
 	{
-		"[ミニチュア牧場] \n",
+		"[微型牧场] \n",
 		"Tiny Pixel Farm\n"
 	};
 

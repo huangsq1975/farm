@@ -3,7 +3,7 @@ using UnityEngine;
 public class Review : SingletonMonoBehaviour<Review>
 {
 	[SerializeField]
-	[Header("-----各OSのID-----")]
+	[Header("-----各平台ID-----")]
 	private int _iosID = 1328266576;
 
 	[SerializeField]

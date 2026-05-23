@@ -174,7 +174,7 @@ public class Progress : MonoBehaviour
 		}
 		else
 		{
-			UnityEngine.Debug.unityLogger.LogError("Error", "LOOP以外で使用できません。");
+			UnityEngine.Debug.unityLogger.LogError("Error", "只能在LOOP模式下使用。");
 		}
 	}
 

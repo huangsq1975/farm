@@ -28,7 +28,7 @@ public class TouchEventRect : MonoBehaviour
 		rect_transform = GetComponent<RectTransform>();
 		if (rect_transform == null)
 		{
-			UnityEngine.Debug.unityLogger.LogError("Error", "RectTransformが必要です。");
+			UnityEngine.Debug.unityLogger.LogError("Error", "需要RectTransform组件。");
 		}
 	}
 
