@@ -880,12 +880,12 @@ public class Event : MonoBehaviour
 			{
 				bg.SetActive(value: false);
 				character_select.transform.Find("bg_white").gameObject.SetActive(value: false);
-			});
-			sequence2.AppendCallback(DoOpening);
-			sequence2.AppendCallback(delegate
-			{
+				// front_white を DoOpening より前に Event レイヤーへ移動して
+				// カメラ切り替え時に白いオーバーレイが確実に表示されるようにする
 				Utils.SetLayer(front.gameObject, LAYER_EVENT);
 			});
+			sequence2.AppendCallback(DoOpening);
+			sequence2.AppendInterval(0.1f); // 背景テクスチャが描画されるまで1フレーム待つ
 			sequence2.Append(DOTween.ToAlpha(() => front.color, delegate(Color color)
 			{
 				front.color = color;
