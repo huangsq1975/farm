@@ -172,6 +172,7 @@ public class Manager : MonoBehaviour
 		SpriteRenderer component2 = GameObject.Find("UI/LevelManager/image").GetComponent<SpriteRenderer>();
 		component2.sprite = SpriteManager.GetUiLevelSprite(Data.farm_type);
 		running = true;
+		SystemFontManager.Init();
 		if (data.opening == 0)
 		{
 			for (int i = 0; i < 4; i++)
