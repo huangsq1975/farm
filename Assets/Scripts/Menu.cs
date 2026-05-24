@@ -637,6 +637,7 @@ public class Menu : MonoBehaviour
 	public void ClickRecommend()
 	{
 		//LinkEvent.PushedRecommend((int)manager.data.lang);
+		CloseMenu(false);
 	}
 
 	private void SetRecommendBanner()
