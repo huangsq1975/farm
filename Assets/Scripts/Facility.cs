@@ -173,6 +173,7 @@ public class Facility : MonoBehaviour
 		{
 			f = self;
 			obj = UnityEngine.Object.Instantiate((GameObject)Resources.Load("Prefab/" + ChangeGrassFarmType(Data.farm_type, f.state) + f.GetType().FullName.ToLower() + MakeFacilityName(f.state, f.type)), f.transform);
+			SystemFontManager.ApplyToGameObject(obj);
 			if (f.type == eType.NONE)
 			{
 				obj.transform.localPosition = Vector2.zero;
@@ -589,6 +590,7 @@ public class Facility : MonoBehaviour
 		{
 			Destroy(index);
 			bars[index] = UnityEngine.Object.Instantiate((GameObject)Resources.Load("Prefab/progress_1"), parent).GetComponent<Progress>();
+			SystemFontManager.ApplyToGameObject(bars[index].gameObject);
 			bars[index].gameObject.name = "progress_1";
 			bars[index].transform.localPosition = pos;
 			bars[index].SetOrderInLayer(order);

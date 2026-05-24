@@ -497,6 +497,7 @@ public class StoreManager : MonoBehaviour
 		store_exterior = UnityEngine.Object.Instantiate(original, base.transform, worldPositionStays: false);
 		store_order_in_layer = store_exterior.transform.Find("contents/building_1").GetComponent<SpriteRenderer>().sortingOrder;
 		MapIconLabel.Set(store_exterior.transform, "商店", store_order_in_layer + 1);
+		SystemFontManager.ApplyToGameObject(store_exterior);
 		if (!immediate)
 		{
 			Animation component = store_exterior.GetComponent<Animation>();
@@ -578,6 +579,7 @@ public class StoreManager : MonoBehaviour
 			present_video_exterior.Clear();
 			GameObject original = Resources.Load("Prefab/store_inner") as GameObject;
 			store_inner = UnityEngine.Object.Instantiate(original, store_exterior.transform, worldPositionStays: false);
+			SystemFontManager.ApplyToGameObject(store_inner);
 			for (int i = 0; i < 4; i++)
 			{
 				table_area[i] = new TableArea(this, store_inner.transform.Find("table_" + (i + 1)).gameObject, i);

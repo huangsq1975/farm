@@ -535,6 +535,7 @@ public class HotelManager : MonoBehaviour
 		hotel_exterior = UnityEngine.Object.Instantiate(original, base.transform, worldPositionStays: false);
 		hotel_order_in_layer = hotel_exterior.transform.Find("contents/building_1").GetComponent<SpriteRenderer>().sortingOrder;
 		MapIconLabel.Set(hotel_exterior.transform, "酒店", hotel_order_in_layer + 1);
+		SystemFontManager.ApplyToGameObject(hotel_exterior);
 		if (!immediate)
 		{
 			Animation component = hotel_exterior.GetComponent<Animation>();
@@ -618,6 +619,7 @@ public class HotelManager : MonoBehaviour
 		{
 			GameObject original = Resources.Load("Prefab/hotel_inner") as GameObject;
 			hotel_inner = UnityEngine.Object.Instantiate(original, hotel_exterior.transform, worldPositionStays: false);
+			SystemFontManager.ApplyToGameObject(hotel_inner);
 			for (int i = 0; i < 4; i++)
 			{
 				room_area[i] = new RoomArea(this, hotel_inner.transform.Find("room_" + (i + 1)).gameObject, i);
