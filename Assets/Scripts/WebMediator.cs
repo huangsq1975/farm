@@ -1,4 +1,6 @@
+#if UNITY_ANDROID
 #define DEFINE_NATIVE
+#endif
 
 using System;
 using System.Collections;

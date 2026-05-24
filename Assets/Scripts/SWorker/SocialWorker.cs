@@ -119,10 +119,12 @@ namespace SWorker
 				imagePath = string.Empty;
 			}
 			SocialWorker.onResult = onResult;
+#if UNITY_ANDROID
 			AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 			AndroidJavaObject @static = androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity");
 			@static.Call("createChooser", message, imagePath);
 			@static.Dispose();
+#endif
 		}
 
 		public void OnSocialWorkerResult(string res)
